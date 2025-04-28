@@ -2,6 +2,18 @@
 
 @section('content')
 <script>
+/*
+ * promptDashboard Alpine.js state & methods
+ * - allPrompts, filteredPrompts: holds prompt data and filtered subset
+ * - filters, sort, pagination: for search, sort, and paging
+ * - importing, dragActive, importProgress, importError: for CSV/JSON import
+ * - showBulkImportModal, showCreatePromptModal: modal visibility toggles
+ * - isExportingCsv/Json: export state flags
+ * - toast: feedback messages
+ * - Core methods: filterPrompts, sortPrompts, paginatedPrompts, updatePagination, prev/nextPage, exportFile, uploadImportFile, etc.
+ * - UI helpers: triggerFileInput, clearImportFileInfo, handleDragOver/Leave/Drop, showToast, deletePrompt
+ * - All state & methods are referenced in markup or import/export logic
+ */
 function promptDashboard() {
     return {
         allPrompts: @json($promptArray),
@@ -24,7 +36,6 @@ function promptDashboard() {
             error: { show: false, message: '' }
         },
         init() {
-            console.log('[Alpine] promptDashboard initialized');
             this.filterPrompts();
             window.promptDashboard = this; // for toast triggers
         },
