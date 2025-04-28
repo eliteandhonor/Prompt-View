@@ -277,7 +277,7 @@ function promptDashboard() {
 }
 </script>
 <div
-    x-data="{ ...promptDashboard(), showBulkImportModal: false, showCreatePromptModal: false, isExportingCsv: false, isExportingJson: false }"
+    x-data="promptDashboard()"
     x-init="init()"
     class="max-w-7xl mx-auto px-4 py-8 font-sans"
 >
@@ -534,108 +534,115 @@ function promptDashboard() {
     </div>
 
     <!-- Bulk Import Modal -->
-    <x-modal
-        name="bulk-import-modal"
-        x-show="showBulkImportModal"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-95"
-        x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
-        style="display: none;"
-    >
-        <div class="bg-gray-900 w-full max-w-2xl rounded-3xl shadow-2xl border-2 border-neon-violet p-10 relative font-sans">
-            <button
-                class="absolute top-4 right-5 text-gray-400 hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-neon-violet rounded-full transition"
-                x-on:click="showBulkImportModal = false; clearImportFileInfo()"
-                aria-label="Close"
-            >
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
-            <h2 class="text-2xl font-bold text-neon-violet mb-6 font-sans" id="import-modal-title">Bulk Import Prompts</h2>
-            <div
-                class="border-4 border-dashed rounded-2xl flex flex-col items-center justify-center py-16 px-6 cursor-pointer transition-all duration-300 ease-in-out relative outline-none w-full focus:ring-4 focus:ring-neon-violet/70 bg-gradient-to-br from-indigo-950 via-purple-950 to-gray-950"
-                :class="{
-                    'border-neon-violet ring-4 ring-neon-violet/60 shadow-neon-violet animate-pulse scale-105 bg-gray-800/60': dragActive,
-                    'border-gray-600 bg-gray-900': !dragActive
-                }"
-                tabindex="0"
-                role="button"
-                aria-describedby="import-modal-desc"
-                aria-label="Drag and drop CSV or JSON file here, or click to select"
-                x-on:click="triggerFileInput"
-                x-on:keydown.enter.prevent="triggerFileInput"
-                x-on:keydown.space.prevent="triggerFileInput"
-                x-on:dragover.prevent="handleDragOver"
-                x-on:dragleave.prevent="handleDragLeave"
-                x-on:dragend.prevent="handleDragLeave"
-                x-on:drop.prevent="handleDrop"
-                x-ref="dropzone"
-            >
-                <input
-                    type="file"
-                    class="sr-only"
-                    accept=".csv,.json,text/csv,application/json"
-                    x-ref="importFileInput"
-                    x-on:change="handleFileSelect"
-                    tabindex="-1"
-                    aria-hidden="true"
-                />
-                <svg class="w-16 h-16 text-neon-violet mb-3 pointer-events-none animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
-                </svg>
-                <span class="text-gray-400 mb-2 text-lg font-bold pointer-events-none font-sans">Drag & drop CSV or JSON file here</span>
-                <span class="text-gray-500 text-sm pointer-events-none font-sans">or click to select file</span>
-                <div aria-live="polite" class="absolute left-2 right-2 top-2 text-xs text-blue-400 font-sans" x-show="importError" x-text="importError"></div>
-            </div>
-            <!-- File Info Feedback -->
-            <template x-if="importFileName">
-                <div class="mt-6 w-full flex flex-col items-center gap-2">
-                    <div class="text-sm text-blue-300 font-semibold font-sans flex items-center gap-3">
-                        <svg class="w-5 h-5 text-neon-violet" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 002.829 2.828l6.586-6.586a2 2 0 00-2.829-2.828z" />
-                        </svg>
-                        <span>File: <span x-text="importFileName"></span> (<span x-text="importFileSize"></span>)</span>
+    <template x-if="showBulkImportModal">
+        <div
+            x-data="{
+                close() { showBulkImportModal = false; clearImportFileInfo(); console.log('[DEBUG] Bulk Import Modal closed'); }
+            }"
+            x-init="console.log('[DEBUG] Bulk Import Modal opened')"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+            x-show="showBulkImportModal"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95"
+            tabindex="0"
+            aria-modal="true"
+            role="dialog"
+        >
+            <div class="bg-gray-900 w-full max-w-2xl rounded-3xl shadow-2xl border-2 border-neon-violet p-10 relative font-sans">
+                <button
+                    class="absolute top-4 right-5 text-gray-400 hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-neon-violet rounded-full transition"
+                    x-on:click="close()"
+                    aria-label="Close"
+                >
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                <h2 class="text-2xl font-bold text-neon-violet mb-6 font-sans" id="import-modal-title">Bulk Import Prompts</h2>
+                <div
+                    class="border-4 border-dashed rounded-2xl flex flex-col items-center justify-center py-16 px-6 cursor-pointer transition-all duration-300 ease-in-out relative outline-none w-full focus:ring-4 focus:ring-neon-violet/70 bg-gradient-to-br from-indigo-950 via-purple-950 to-gray-950"
+                    :class="{
+                        'border-neon-violet ring-4 ring-neon-violet/60 shadow-neon-violet animate-pulse scale-105 bg-gray-800/60': dragActive,
+                        'border-gray-600 bg-gray-900': !dragActive
+                    }"
+                    tabindex="0"
+                    role="button"
+                    aria-describedby="import-modal-desc"
+                    aria-label="Drag and drop CSV or JSON file here, or click to select"
+                    x-on:click="triggerFileInput"
+                    x-on:keydown.enter.prevent="triggerFileInput"
+                    x-on:keydown.space.prevent="triggerFileInput"
+                    x-on:dragover.prevent="handleDragOver"
+                    x-on:dragleave.prevent="handleDragLeave"
+                    x-on:dragend.prevent="handleDragLeave"
+                    x-on:drop.prevent="handleDrop"
+                    x-ref="dropzone"
+                >
+                    <input
+                        type="file"
+                        class="sr-only"
+                        accept=".csv,.json,text/csv,application/json"
+                        x-ref="importFileInput"
+                        x-on:change="handleFileSelect"
+                        tabindex="-1"
+                        aria-hidden="true"
+                    />
+                    <svg class="w-16 h-16 text-neon-violet mb-3 pointer-events-none animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    <span class="text-gray-400 mb-2 text-lg font-bold pointer-events-none font-sans">Drag & drop CSV or JSON file here</span>
+                    <span class="text-gray-500 text-sm pointer-events-none font-sans">or click to select file</span>
+                    <div aria-live="polite" class="absolute left-2 right-2 top-2 text-xs text-blue-400 font-sans" x-show="importError" x-text="importError"></div>
+                </div>
+                <!-- File Info Feedback -->
+                <template x-if="importFileName">
+                    <div class="mt-6 w-full flex flex-col items-center gap-2">
+                        <div class="text-sm text-blue-300 font-semibold font-sans flex items-center gap-3">
+                            <svg class="w-5 h-5 text-neon-violet" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 002.829 2.828l6.586-6.586a2 2 0 00-2.829-2.828z" />
+                            </svg>
+                            <span>File: <span x-text="importFileName"></span> (<span x-text="importFileSize"></span>)</span>
+                        </div>
                     </div>
+                </template>
+                <div class="mt-8 w-full">
+                    <div x-show="importing" class="w-full bg-gray-800 rounded-full h-3 mb-3 overflow-hidden" aria-hidden="false">
+                        <div class="bg-blue-600 h-3 rounded-full transition-all duration-700"
+                            x-bind:style="'width: ' + importProgress + '%'"
+                            x-bind:aria-valuenow="importProgress"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            x-bind:aria-valuetext="'Import progress: ' + importProgress + '%'"
+                            role="progressbar"
+                        ></div>
+                    </div>
+                    <div x-show="importing" class="text-blue-400 text-base font-bold font-sans">Importing... <span x-text="importedCount > 0 ? '(' + importedCount + ' imported)' : ''"></span></div>
                 </div>
-            </template>
-            <div class="mt-8 w-full">
-                <div x-show="importing" class="w-full bg-gray-800 rounded-full h-3 mb-3 overflow-hidden" aria-hidden="false">
-                    <div class="bg-blue-600 h-3 rounded-full transition-all duration-700"
-                        x-bind:style="'width: ' + importProgress + '%'"
-                        x-bind:aria-valuenow="importProgress"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        x-bind:aria-valuetext="'Import progress: ' + importProgress + '%'"
-                        role="progressbar"
-                    ></div>
-                </div>
-                <div x-show="importing" class="text-blue-400 text-base font-bold font-sans">Importing... <span x-text="importedCount > 0 ? '(' + importedCount + ' imported)' : ''"></span></div>
-            </div>
-            <div class="mt-10 text-xs text-gray-400 font-sans" id="import-modal-desc">
-                <b>Accepted formats:</b>
-                <ul class="list-disc pl-4 mt-1">
-                    <li>
-                        <b>CSV:</b> Must have headers <code>title,description</code>. Example:
-                        <pre class="bg-gray-800 rounded px-2 py-1 mt-1 text-gray-300 whitespace-pre-wrap break-words font-sans">title,description
+                <div class="mt-10 text-xs text-gray-400 font-sans" id="import-modal-desc">
+                    <b>Accepted formats:</b>
+                    <ul class="list-disc pl-4 mt-1">
+                        <li>
+                            <b>CSV:</b> Must have headers <code>title,description</code>. Example:
+                            <pre class="bg-gray-800 rounded px-2 py-1 mt-1 text-gray-300 whitespace-pre-wrap break-words font-sans">title,description
 Prompt A,Description for A
 Prompt B,Description for B</pre>
-                    </li>
-                    <li class="mt-2">
-                        <b>JSON:</b> Array of objects, each with <code>title</code> and <code>description</code>. Example:
-                        <pre class="bg-gray-800 rounded px-2 py-1 mt-1 text-gray-300 whitespace-pre-wrap break-words font-sans">[
+                        </li>
+                        <li class="mt-2">
+                            <b>JSON:</b> Array of objects, each with <code>title</code> and <code>description</code>. Example:
+                            <pre class="bg-gray-800 rounded px-2 py-1 mt-1 text-gray-300 whitespace-pre-wrap break-words font-sans">[
   {"title": "Prompt A", "description": "Description for A"},
   {"title": "Prompt B", "description": "Description for B"}
 ]</pre>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </x-modal>
+    </template>
 </div>
 
     <!-- Create New Prompt Modal -->
