@@ -1,3 +1,12 @@
+{{--
+    Update Password Form
+    - Allows user to change their password using current and new credentials
+    - Uses components and session status for validation/messages
+    - All dynamic content is escaped for security
+    - KISS: minimal markup
+--}}
+{{-- DEBUG: Dump route('password.update') for validation (remove after check) --}}
+@php // dump(route('password.update')); @endphp
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">

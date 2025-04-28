@@ -1,3 +1,12 @@
+{{--
+    Register View
+    - Displays user registration form with validation
+    - Uses guest layout and component-based inputs
+    - All dynamic content is escaped for security
+    - KISS: minimal markup
+--}}
+{{-- DEBUG: Dump route('register') for validation (remove after check) --}}
+@php // dump(route('register')); @endphp
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf

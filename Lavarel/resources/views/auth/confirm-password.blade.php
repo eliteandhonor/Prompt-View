@@ -1,3 +1,12 @@
+{{--
+    Confirm Password View
+    - Prompts the user to confirm their password before accessing secure areas
+    - Uses guest layout and component-based inputs
+    - All dynamic content is escaped for security
+    - KISS: minimal markup
+--}}
+{{-- DEBUG: Dump route('password.confirm') for validation (remove after check) --}}
+@php // dump(route('password.confirm')); @endphp
 <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600">
         {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}

@@ -1,3 +1,11 @@
+{{--
+    Navigation Layout
+    - Main navigation bar for the app, includes desktop and responsive menus
+    - All dynamic content is escaped for security
+    - KISS: minimal, semantic markup
+--}}
+{{-- DEBUG: Dump route('dashboard') for validation (remove after check) --}}
+@php // dump(route('dashboard')); @endphp
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 md:ml-60">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

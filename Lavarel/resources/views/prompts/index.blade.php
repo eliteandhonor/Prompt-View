@@ -1,3 +1,12 @@
+{{--
+    Prompts Index View
+    - Dashboard for listing, filtering, importing, exporting, and managing prompts
+    - Uses Alpine.js for UI state and interaction
+    - All dynamic content is escaped for security
+    - KISS: minimal markup where possible, comments for clarity
+    - DEBUG: Dump $promptArray for validation (remove after check)
+--}}
+@php // dump($promptArray); @endphp
 @extends('layouts.app')
 
 @section('content')
@@ -528,12 +537,12 @@ function promptDashboard() {
     <x-modal
         name="bulk-import-modal"
         x-show="showBulkImportModal"
-        x-transitionx-bind:enter="transition ease-out duration-300"
-        x-transitionx-bind:enter-start="opacity-0 scale-95"
-        x-transitionx-bind:enter-end="opacity-100 scale-100"
-        x-transitionx-bind:leave="transition ease-in duration-200"
-        x-transitionx-bind:leave-start="opacity-100 scale-100"
-        x-transitionx-bind:leave-end="opacity-0 scale-95"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
         style="display: none;"
     >
@@ -633,12 +642,12 @@ Prompt B,Description for B</pre>
     <x-modal
         name="create-prompt-modal"
         x-show="showCreatePromptModal"
-        x-transitionx-bind:enter="transition ease-out duration-300"
-        x-transitionx-bind:enter-start="opacity-0 scale-95"
-        x-transitionx-bind:enter-end="opacity-100 scale-100"
-        x-transitionx-bind:leave="transition ease-in duration-200"
-        x-transitionx-bind:leave-start="opacity-100 scale-100"
-        x-transitionx-bind:leave-end="opacity-0 scale-95"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
         style="display: none;"
     >
@@ -655,7 +664,7 @@ Prompt B,Description for B</pre>
             <h2 class="text-2xl font-bold text-neon-violet mb-6 font-sans">Create New Prompt</h2>
             <form
                 @submit.prevent="
-                    // Dummy handler – replace with actual submit logic as needed
+                    // DEBUG: Dummy handler – replace with actual submit logic as needed
                     showCreatePromptModal = false
                 "
             >

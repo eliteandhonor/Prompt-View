@@ -1,3 +1,12 @@
+{{--
+    Forgot Password View
+    - Displays password reset request form for users
+    - Uses guest layout and component-based inputs
+    - All dynamic content is escaped for security
+    - KISS: minimal markup
+--}}
+{{-- DEBUG: Dump route('password.email') for validation (remove after check) --}}
+@php // dump(route('password.email')); @endphp
 <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600">
         {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}

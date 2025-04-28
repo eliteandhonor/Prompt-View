@@ -1,3 +1,12 @@
+{{--
+    Update Profile Information Form
+    - Allows user to update their name and email, and request email verification
+    - Uses components and session status for validation/messages
+    - All dynamic content is escaped for security
+    - KISS: minimal markup
+--}}
+{{-- DEBUG: Dump route('profile.update') for validation (remove after check) --}}
+@php // dump(route('profile.update')); @endphp
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">

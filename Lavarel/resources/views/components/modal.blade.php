@@ -1,3 +1,11 @@
+{{--
+    Modal Component
+    - Renders a modal dialog with focus trap and accessibility features
+    - All dynamic content is escaped for security
+    - KISS: minimal, semantic, and accessible markup
+--}}
+{{-- DEBUG: Dump $name/$show for validation (remove after check) --}}
+@php // dump($name, $show); @endphp
 @props([
     'name',
     'show' => false,

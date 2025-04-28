@@ -1,3 +1,11 @@
+{{--
+    Dropdown Component
+    - Renders a dropdown menu with configurable alignment and width
+    - All dynamic content is escaped for security
+    - KISS: minimal, semantic markup
+--}}
+{{-- DEBUG: Dump $align/$width for validation (remove after check) --}}
+@php // dump($align, $width); @endphp
 @props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white'])
 
 @php

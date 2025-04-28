@@ -1,3 +1,12 @@
+{{--
+    Reset Password View
+    - Displays password reset form for users with token and validation
+    - Uses guest layout and component-based inputs
+    - All dynamic content is escaped for security
+    - KISS: minimal markup
+--}}
+{{-- DEBUG: Dump route('password.store') for validation (remove after check) --}}
+@php // dump(route('password.store')); @endphp
 <x-guest-layout>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf

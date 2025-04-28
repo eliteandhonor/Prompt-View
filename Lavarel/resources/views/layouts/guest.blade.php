@@ -1,3 +1,12 @@
+{{--
+    Guest Layout
+    - Layout for unauthenticated (guest) pages
+    - Displays app logo, slot for main content, and minimal styling
+    - All dynamic content is escaped for security
+    - KISS: minimal, semantic markup
+--}}
+{{-- DEBUG: Dump config('app.name') for validation (remove after check) --}}
+@php // dump(config('app.name')); @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

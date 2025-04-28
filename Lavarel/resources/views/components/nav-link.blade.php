@@ -1,3 +1,11 @@
+{{--
+    Nav Link Component
+    - Renders a navigation link with active/inactive styling
+    - All dynamic content is escaped for security
+    - KISS: minimal markup
+--}}
+{{-- DEBUG: Dump $active for validation (remove after check) --}}
+@php // dump($active); @endphp
 @props(['active'])
 
 @php

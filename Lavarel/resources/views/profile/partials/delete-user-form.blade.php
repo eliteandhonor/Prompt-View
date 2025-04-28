@@ -1,3 +1,12 @@
+{{--
+    Delete User Form
+    - Allows user to delete their account with modal confirmation
+    - Uses components and session status for validation/messages
+    - All dynamic content is escaped for security
+    - KISS: minimal markup
+--}}
+{{-- DEBUG: Dump route('profile.destroy') for validation (remove after check) --}}
+@php // dump(route('profile.destroy')); @endphp
 <section class="space-y-6">
     <header>
         <h2 class="text-lg font-medium text-gray-900">

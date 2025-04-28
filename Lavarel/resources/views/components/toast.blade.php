@@ -1,3 +1,12 @@
+{{--
+    Toast Component
+    - Shows a success or error notification (auto-hides after 3s)
+    - Receives trusted message as raw HTML; ensure server-side sanitization to prevent XSS
+    - All other dynamic content is escaped for security
+    - KISS: minimal, semantic markup
+--}}
+{{-- DEBUG: Dump $type/$message for validation (remove after check) --}}
+@php // dump($type, $message); @endphp
 @props([
     'type' => 'success', // 'success' or 'error'
     'message' => '',

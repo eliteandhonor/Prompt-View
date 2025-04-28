@@ -1,3 +1,12 @@
+{{--
+    Login View
+    - Displays user login form with remember me option and password reset link
+    - Uses guest layout and component-based inputs
+    - All dynamic content is escaped for security
+    - KISS: minimal markup
+--}}
+{{-- DEBUG: Dump route('login') for validation (remove after check) --}}
+@php // dump(route('login')); @endphp
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" x-bind:status="session('status')" />

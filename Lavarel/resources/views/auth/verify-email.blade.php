@@ -1,3 +1,12 @@
+{{--
+    Verify Email View
+    - Prompts user to verify their email address, resend link, or logout
+    - Uses guest layout and minimal logic
+    - All dynamic content is escaped for security
+    - KISS: minimal markup
+--}}
+{{-- DEBUG: Dump route('verification.send') for validation (remove after check) --}}
+@php // dump(route('verification.send')); @endphp
 <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600">
         {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
