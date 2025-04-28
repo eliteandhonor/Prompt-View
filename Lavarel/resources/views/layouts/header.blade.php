@@ -1,4 +1,11 @@
-<!-- Header: sticky, minimal, dark, mobile hamburger for sidebar -->
+{{--
+    Header Layout Partial
+    - Sticky header bar, includes mobile hamburger for sidebar toggle and app title
+    - All dynamic content is escaped for security
+    - KISS: minimal, semantic, and accessible markup
+--}}
+{{-- DEBUG: Dump user/auth state for validation (future extension, remove after check) --}}
+@php // dump(auth()->user()); @endphp
 <header class="sticky top-0 z-20 w-full h-16 bg-gradient-to-r from-indigo-950 via-purple-950 to-gray-950 border-b-2 border-neon-violet shadow-futuristic flex items-center px-4 md:pl-60">
     <!-- Mobile Hamburger Button -->
     <button

@@ -1,11 +1,20 @@
+{{--
+    Prompt Create View
+    - Lets user create a new prompt (title & description)
+    - Shows server-side validation errors if present
+    - All data is escaped for security
+    - KISS: minimal, clear markup and logic
+--}}
 @extends('layouts.app')
 
 @section('content')
+    {{-- DEBUG: Dump old input for validation (remove after check) --}}
+    @php // dump(old()); @endphp
     <div class="container max-w-xl mx-auto py-10 px-4">
         <h1 class="text-3xl font-bold mb-8 text-gray-100 font-sans">Create Prompt</h1>
 
         @if ($errors->any())
-            <div class="mb-6">
+            <div class="mb-6" role="alert" aria-live="assertive">
                 <ul class="list-disc list-inside text-red-400 font-semibold">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -14,7 +23,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('prompts.store') }}" class="space-y-8">
+        <form method="POST" action="{{ route('prompts.store') }}" class="space-y-8" autocomplete="off">
             @csrf
 
             <div>

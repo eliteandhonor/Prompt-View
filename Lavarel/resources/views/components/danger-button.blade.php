@@ -1,3 +1,11 @@
+{{--
+    Danger Button Component
+    - Renders a destructive action button with red styling
+    - All dynamic content except trusted slot is escaped for security
+    - KISS: minimal, semantic markup
+--}}
+{{-- DEBUG: Dump $slot for validation (remove after check) --}}
+@php // dump($slot); @endphp
 <button {{ $attributes->merge([
     'type' => 'submit',
     'class' => '

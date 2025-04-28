@@ -1,4 +1,12 @@
-<!-- Sidebar: collapsible on mobile, sticky, dark, minimal -->
+{{--
+    Sidebar Layout Partial
+    - Collapsible sidebar with navigation links (responsive, sticky, dark)
+    - Uses <x-sidebar-link> for navigation
+    - All dynamic content is escaped for security
+    - KISS: minimal, semantic, and accessible markup
+--}}
+{{-- DEBUG: Dump current route for validation (remove after check) --}}
+@php // dump(request()->route()->getName()); @endphp
 <!-- Mobile overlay for sidebar (only on mobile & when open) -->
 <div
     x-show="open"

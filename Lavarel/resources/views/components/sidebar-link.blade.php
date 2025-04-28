@@ -1,3 +1,11 @@
+{{--
+    Sidebar Link Component
+    - Renders a navigation link for the sidebar, with optional icon and active state
+    - All dynamic content except trusted SVG icons is escaped for security
+    - KISS: minimal, semantic markup
+--}}
+{{-- DEBUG: Dump $href/$active for validation (remove after check) --}}
+@php // dump($href, $active); @endphp
 @props([
     'href',
     'active' => false,

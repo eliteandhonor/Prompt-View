@@ -1,6 +1,12 @@
 @props(['href' => null])
-{{-- DEBUG: Log how the slot is being rendered --}}
-@php \Log::info('[secondary-button] slot=' . $slot) @endphp
+{{--
+    Secondary Button Component
+    - Renders a secondary style button or link, with slot for content
+    - All dynamic content except trusted slot is escaped for security
+    - KISS: minimal, semantic markup
+--}}
+{{-- DEBUG: Dump $href/$slot for validation (remove after check) --}}
+@php // dump($href, $slot); @endphp
 
 @if ($href)
     <a

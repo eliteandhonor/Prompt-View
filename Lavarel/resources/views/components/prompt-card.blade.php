@@ -1,3 +1,11 @@
+{{--
+    Prompt Card Component
+    - Displays a prompt's title and content, with copy-to-clipboard button
+    - All dynamic content is escaped for security
+    - Minimal, clear markup and logic (KISS)
+--}}
+{{-- DEBUG: Dump $title/$content for validation (remove after check) --}}
+@php // dump($title, $content); @endphp
 @props([
     'title' => '',
     'content' => '',

@@ -1,3 +1,13 @@
+{{--
+    App Layout
+    - Root HTML layout for all pages
+    - Includes sidebar, header, and main content
+    - Loads Alpine.js, Tailwind CSS, Google Fonts
+    - All dynamic content is escaped for security
+    - KISS: minimal, semantic, and accessible markup
+--}}
+{{-- DEBUG: Dump config/app.name for validation (remove after check) --}}
+@php // dump(config('app.name')); @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark font-sans">
     <head>

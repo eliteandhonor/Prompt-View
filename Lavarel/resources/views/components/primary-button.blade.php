@@ -1,3 +1,11 @@
+{{--
+    Primary Button Component
+    - Renders a primary style button or link, with slot for content
+    - All dynamic content except trusted slot is escaped for security
+    - KISS: minimal, semantic markup
+--}}
+{{-- DEBUG: Dump $href/$slot for validation (remove after check) --}}
+@php // dump($href, $slot); @endphp
 @props(['href' => null])
 
 @if ($href)
