@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Toast notification styles */
+.toast {
+  max-width: 300px !important;
+  width: 100%;
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+@media (max-width: 640px) {
+  .toast {
+    bottom: 56px; /* Raise toast above pagination controls on mobile */
+    right: 16px;
+    left: auto;
+  }
+}
